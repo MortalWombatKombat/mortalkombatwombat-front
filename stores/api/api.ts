@@ -15,11 +15,14 @@ class API {
   }
 
   async register(payload: BackendCredentialsData): Promise<void> {
-    await this.request({
-      url: "/auth/users/",
-      method: "POST",
-      payload,
-    });
+    await this.request(
+      {
+        url: "/auth/users/",
+        method: "POST",
+        payload,
+      },
+      true
+    );
   }
 
   async refreshToken(refresh: string): Promise<{ access: string }> {
@@ -40,24 +43,27 @@ class API {
     });
   }
 
-  async request<T>({
-    url,
-    method,
-    headers,
-    payload,
-  }: {
-    url: string;
-    method: "GET" | "POST";
-    headers?: AxiosHeaders;
-    payload?: any;
-  }): Promise<AxiosResponse<T>> {
+  async request<T>(
+    {
+      url,
+      method,
+      headers,
+      payload,
+    }: {
+      url: string;
+      method: "GET" | "POST";
+      headers?: AxiosHeaders;
+      payload?: any;
+    },
+    disableToken?: boolean
+  ): Promise<AxiosResponse<T>> {
     const accessToken = await AsyncStorage.getItem("access");
 
     return client.request({
       url,
       method,
       headers: {
-        ...(accessToken
+        ...(accessToken && !disableToken
           ? {
               Authorization: `Bearer ${accessToken}`,
             }
