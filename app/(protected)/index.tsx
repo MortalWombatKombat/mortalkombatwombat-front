@@ -1,10 +1,7 @@
 import { StyleSheet, View , Text, Pressable} from 'react-native';
 import { router } from 'expo-router';
-import useVerifyAuth from '@/hooks/useVerifyAuth';
 
 export default function HomePage() {
-  useVerifyAuth()
-
   return (
     <View style={styles.container}>
       <Text>Kwiatek</Text>

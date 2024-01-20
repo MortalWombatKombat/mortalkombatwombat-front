@@ -5,30 +5,26 @@ import { Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
-import { useEffect } from "react";
-import { CredentialsData } from "@/stores/auth/types";
 
-const defaultValues = { username: "", password: "" };
+const defaultValues = { username: "", password: "", rePassword: "" };
 
 export default function TabOneScreen() {
   const { control, handleSubmit, setError } = useForm({ defaultValues });
-  const [access, login, loading] = useAuth((state) => [
-    state.access,
-    state.login,
+  const [register, loading] = useAuth((state) => [
+    state.register,
     state.loading,
   ]);
 
-  useEffect(() => {
-    if (access) router.replace("/");
-  }, [access]);
 
-  const onSubmit = async (credentials: CredentialsData) => {
+  const onSubmit = async (credentials: typeof defaultValues) => {
+    if (credentials.rePassword !== credentials.password) {
+      return setError("rePassword", { message: "Passwords are not equal!" });
+    }
     try {
-      await login(credentials);
+      await register(credentials);
       router.replace("/");
     } catch (err) {
-      console.error(err);
-      setError("password", { message: "Wrong email or password!" });
+      setError("password", { message: "Username taken!" });
     }
   };
 
@@ -41,11 +37,17 @@ export default function TabOneScreen() {
         name="password"
         secure
       />
+      <ControlledInput
+        control={control}
+        label="Repeat password: "
+        name="rePassword"
+        secure
+      />
       <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.navigate("/register")}>
         <Text>Register</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.navigate("/login")}>
+        <Text>Login</Text>
       </TouchableOpacity>
       {loading ? <ActivityIndicator /> : null}
     </View>

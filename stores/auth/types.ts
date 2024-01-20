@@ -8,6 +8,7 @@ export type AuthStore = {
   refresh: string | null;
   username: string | null;
   loading: boolean;
+  restoreTokensLoading: boolean;
   login: (credentials: CredentialsData) => Promise<void>;
   register: (credentials: CredentialsData) => Promise<void>;
   refreshToken: (token: string) => Promise<void>;
