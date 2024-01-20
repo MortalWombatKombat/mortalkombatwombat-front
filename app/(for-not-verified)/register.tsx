@@ -1,7 +1,12 @@
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from "react-native";
 import { router } from "expo-router";
 
-import { Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
@@ -14,7 +19,6 @@ export default function TabOneScreen() {
     state.register,
     state.loading,
   ]);
-
 
   const onSubmit = async (credentials: typeof defaultValues) => {
     if (credentials.rePassword !== credentials.password) {

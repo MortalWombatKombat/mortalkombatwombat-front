@@ -1,7 +1,11 @@
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from "react-native";
 import { router } from "expo-router";
-
-import { Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
@@ -11,10 +15,7 @@ const defaultValues = { username: "", password: "" };
 
 export default function TabOneScreen() {
   const { control, handleSubmit, setError } = useForm({ defaultValues });
-  const [login, loading] = useAuth((state) => [
-    state.login,
-    state.loading,
-  ]);
+  const [login, loading] = useAuth((state) => [state.login, state.loading]);
   const onSubmit = async (credentials: CredentialsData) => {
     try {
       await login(credentials);
