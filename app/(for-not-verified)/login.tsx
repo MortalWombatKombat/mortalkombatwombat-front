@@ -1,31 +1,23 @@
 import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
-import { Text, View } from "@/components/Themed";
+import { Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
-import { useEffect } from "react";
 import { CredentialsData } from "@/stores/auth/types";
 
 const defaultValues = { username: "", password: "" };
 
 export default function TabOneScreen() {
   const { control, handleSubmit, setError } = useForm({ defaultValues });
-  const [access, login, loading] = useAuth((state) => [
-    state.access,
+  const [login, loading] = useAuth((state) => [
     state.login,
     state.loading,
   ]);
-
-  useEffect(() => {
-    if (access) router.replace("/home");
-  }, [access]);
-
   const onSubmit = async (credentials: CredentialsData) => {
     try {
       await login(credentials);
-      router.replace("/home");
     } catch (err) {
       console.error(err);
       setError("password", { message: "Wrong email or password!" });

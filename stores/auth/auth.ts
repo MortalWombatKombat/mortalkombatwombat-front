@@ -3,15 +3,15 @@ import { AuthStore, CredentialsData } from "./types";
 import API from "../api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { verifyAccessToken } from "./utils";
+import { router } from "expo-router";
 
 export const useAuth = create<AuthStore>((set) => ({
   access: null,
   refresh: null,
   username: null,
   loading: false,
-
-  setLoadingOff: () => set({ loading: false }),
-  setLoadingOn: () => set({ loading: true }),
+  checkedAccessInStorage: false,
+  restoreTokensLoading: false,
 
   login: async (credentials: CredentialsData) => {
     set({ loading: true });
@@ -23,6 +23,7 @@ export const useAuth = create<AuthStore>((set) => ({
       AsyncStorage.setItem("access", tokens.access);
       AsyncStorage.setItem("refresh", tokens.refresh);
       set({ ...tokens });
+      router.replace("/");
     } finally {
       set({ loading: false });
     }
@@ -42,6 +43,7 @@ export const useAuth = create<AuthStore>((set) => ({
       AsyncStorage.setItem("access", tokens.access);
       AsyncStorage.setItem("refresh", tokens.refresh);
       set({ ...tokens });
+      router.replace("/");
     } finally {
       set({ loading: false });
     }
@@ -61,27 +63,27 @@ export const useAuth = create<AuthStore>((set) => ({
   },
 
   restoreTokens: async () => {
+    set({ restoreTokensLoading: true });
     const access = await AsyncStorage.getItem("access");
     const refresh = await AsyncStorage.getItem("refresh");
 
     if (!refresh) {
-      set({ loading: false });
+      set({ restoreTokensLoading: false });
       return;
     }
 
-    set({ loading: true });
     const verifiedAccess = await verifyAccessToken(access);
     if (verifiedAccess) {
-      set({ access: verifiedAccess, refresh, loading: false });
+      set({ access: verifiedAccess, refresh, restoreTokensLoading: false });
       return;
     }
 
     try {
       const { access } = await API.refreshToken(refresh);
       AsyncStorage.setItem("access", access);
-      set({ access, refresh, loading: false });
+      set({ access, refresh, restoreTokensLoading: false });
     } catch {
-      set({ loading: false });
+      set({ restoreTokensLoading: false });
     }
   },
 }));
