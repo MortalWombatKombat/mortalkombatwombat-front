@@ -10,25 +10,33 @@ import { router } from "expo-router";
 import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValues = { username: "", password: "", rePassword: "" };
 
+const registerSchema = z.object({
+  username: z.string().min(1, 'Pole jest wymagane'),
+  password: z.string().min(1, 'Pole jest wymagane'),
+  rePassword: z.string().min(1, 'Pole jest wymagane'),
+}).refine(({password, rePassword}) => password !== rePassword, {
+  path: ['password'],
+  message: "Passwords don't match"
+});
+
 export default function TabOneScreen() {
-  const { control, handleSubmit, setError } = useForm({ defaultValues });
+  const { control, handleSubmit } = useForm({ defaultValues, resolver: zodResolver(registerSchema) });
   const [register, loading] = useAuth((state) => [
     state.register,
     state.loading,
   ]);
 
   const onSubmit = async (credentials: typeof defaultValues) => {
-    if (credentials.rePassword !== credentials.password) {
-      return setError("rePassword", { message: "Passwords are not equal!" });
-    }
     try {
       await register(credentials);
       router.replace("/");
     } catch (err) {
-      setError("password", { message: "Username taken!" });
+      console.error(err);
     }
   };
 
