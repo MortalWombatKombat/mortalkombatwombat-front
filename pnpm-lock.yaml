@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@babel/runtime':
+    specifier: ^7.23.8
+    version: 7.23.8
   '@expo/vector-icons':
     specifier: ^14.0.0
     version: 14.0.0
