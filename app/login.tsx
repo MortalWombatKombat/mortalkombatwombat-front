@@ -1,35 +1,34 @@
 import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
-import { Text, View } from "@/components/Themed";
+import { Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
 import { useEffect } from "react";
+import { CredentialsData } from "@/stores/auth/types";
 
-const defaultValues = { username: "", password: "", rePassword: "" };
+const defaultValues = { username: "", password: "" };
 
 export default function TabOneScreen() {
   const { control, handleSubmit, setError } = useForm({ defaultValues });
-  const [access, register, loading] = useAuth((state) => [
+  const [access, login, loading] = useAuth((state) => [
     state.access,
-    state.register,
+    state.login,
     state.loading,
   ]);
 
   useEffect(() => {
-    if (access) router.replace("/home");
+    if (access) router.replace("/");
   }, [access]);
 
-  const onSubmit = async (credentials: typeof defaultValues) => {
-    if (credentials.rePassword !== credentials.password) {
-      return setError("rePassword", { message: "Passwords are not equal!" });
-    }
+  const onSubmit = async (credentials: CredentialsData) => {
     try {
-      await register(credentials);
-      router.replace("/home");
+      await login(credentials);
+      router.replace("/");
     } catch (err) {
-      setError("password", { message: "Username taken!" });
+      console.error(err);
+      setError("password", { message: "Wrong email or password!" });
     }
   };
 
@@ -42,17 +41,11 @@ export default function TabOneScreen() {
         name="password"
         secure
       />
-      <ControlledInput
-        control={control}
-        label="Repeat password: "
-        name="rePassword"
-        secure
-      />
       <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text>Register</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.navigate("/login")}>
         <Text>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.navigate("/register")}>
+        <Text>Register</Text>
       </TouchableOpacity>
       {loading ? <ActivityIndicator /> : null}
     </View>
