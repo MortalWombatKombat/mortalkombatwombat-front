@@ -53,7 +53,7 @@ class API {
 
     return await new Promise((resolve) => {
       setTimeout(() => {
-      resolve([])
+      resolve({ addictionOptions: [{ id: '1', name: 'Alcohol'}, { id: '2', name: 'Cofee' }, { id: '3', name: 'Marijuana' }] });
     }, 2000)} )
   }
 

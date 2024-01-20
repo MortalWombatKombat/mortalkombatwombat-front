@@ -1,9 +1,10 @@
 import ControlledInput from "@/components/ControlledInput";
+import ControlledSingleOptionSelect from "@/components/ControlledSingleOptionSelect";
 import { AddictionOption } from "@/types/addiction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
-import { View , Text, Pressable, StyleSheet } from "react-native";
+import { View , Text,  StyleSheet, TouchableOpacity } from "react-native";
 import { z } from "zod";
 
 type EditUserFormProps = {
@@ -36,8 +37,9 @@ return <View style={styles.container}>
   <Text style={styles.title}>Edit user</Text>
   <ControlledInput control={control} label="First name: " name="firstname" />
   <ControlledInput control={control} label="Last name: " name="lastname" />
-  <ControlledInput control={control} label="Addiction " name="addiction" />
-  <Pressable onPress={handleSubmit(onSubmit)}><Text>Go to root</Text></Pressable>
+  <ControlledSingleOptionSelect name="addiction" control={control} options={props.addictionOptions}>
+    <TouchableOpacity style={{ padding: 4, backgroundColor: 'red' }} onPress={handleSubmit(onSubmit)}><Text>Edit</Text></TouchableOpacity>
+  </ControlledSingleOptionSelect>
 </View>
 }
 
