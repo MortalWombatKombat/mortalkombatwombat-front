@@ -43,6 +43,20 @@ class API {
     });
   }
 
+  async getAddictionOptions(): Promise<{ addictionOptions: Array<{ id: string, name: string }> }> {
+    // const { data } = await this.request<{ addictionOptions: string[] }>({
+    //   method: "GET",
+    //   url: '/api/addictions/all' // temporarly
+    // })
+
+    // return data;
+
+    return await new Promise((resolve) => {
+      setTimeout(() => {
+      resolve([])
+    }, 2000)} )
+  }
+
   async request<T>(
     {
       url,
