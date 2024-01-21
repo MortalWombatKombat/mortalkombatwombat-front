@@ -1,12 +1,16 @@
 import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
-import { BackendCredentialsData, TokensData } from "../auth/types";
+import {
+  BackendMoodData,
+  CredentialsData,
+  TokensData,
+  UserData,
+} from "../auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AddictionOption } from "@/types/addiction";
-import { EditUserPatchPayload } from "@/components/EditUserContainer/EditUserForm/EditUserForm";
 
 class API {
-  async login(payload: BackendCredentialsData): Promise<TokensData> {
+  async login(payload: CredentialsData): Promise<TokensData> {
     const { data } = await this.request<TokensData>({
       url: "/auth/jwt/create/",
       method: "POST",
@@ -16,7 +20,7 @@ class API {
     return data;
   }
 
-  async register(payload: BackendCredentialsData): Promise<void> {
+  async register(payload: CredentialsData): Promise<void> {
     await this.request(
       {
         url: "/auth/users/",
@@ -45,32 +49,44 @@ class API {
     });
   }
 
-  async getAddictionOptions(token: string) {
-    const { data: AddictionOption } = await this.request<Array<AddictionOption>>({
+  async getAddictionOptions(): Promise<Array<AddictionOption>> {
+    const { data } = await this.request<Array<AddictionOption>>({
       method: "GET",
-      url: '/addictions/' // temporarly
-    })
-
-    const result = await Promise.all([this.request<Array<AddictionOption>>({
-      method: "GET",
-      url: '/addictions/' // temporarly
-    }), this.request<{ last_name: string | null, first_name: string | null }>({
-      payload: { token },
-      method: "GET",
-      url: '/auth/users/me/' // temporarly
-    })])
-    
-    return result;
+      url: "/addictions/", // temporarly
+    });
+    return data;
   }
 
-  async editUser(payload: EditUserPatchPayload): Promise<void> {
-    await this.request<{ addictionOptions: 
-      Array<AddictionOption>
-    }>({
+  async editUser(payload: UserData): Promise<void> {
+    await this.request({
       payload,
       method: "PATCH",
-      url: '/auth/users/me/' // temporarly
-    })
+      url: "/auth/users/me/", // temporarly
+    });
+  }
+
+  async getMood(): Promise<BackendMoodData | undefined> {
+    const { data } = await this.request<BackendMoodData>({
+      url: "/mood_entry/current_mood/",
+      method: "GET",
+    });
+    return data;
+  }
+
+  async getUser(): Promise<UserData> {
+    const { data } = await this.request<UserData>({
+      url: "/auth/users/me/",
+      method: "GET",
+    });
+    return data;
+  }
+
+  async postMood(payload: BackendMoodData): Promise<void> {
+    await this.request<void>({
+      url: "/mood_entry/",
+      method: "POST",
+      payload: { ...payload },
+    });
   }
 
   async request<T>(

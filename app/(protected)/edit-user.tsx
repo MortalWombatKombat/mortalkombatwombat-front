@@ -1,12 +1,6 @@
-import React from 'react';
-import EditUserContainer from "@/components/EditUserContainer";
-
-
+import EditUserForm from "@/components/EditUserForm";
+import React from "react";
 
 export default function EditUserScreen() {
-  return <EditUserContainer />
+  return <EditUserForm />;
 }
-
-
-
-

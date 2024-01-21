@@ -15,17 +15,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValues = { username: "", password: "", rePassword: "" };
 
-const registerSchema = z.object({
-  username: z.string().min(1, 'Pole jest wymagane'),
-  password: z.string().min(1, 'Pole jest wymagane'),
-  rePassword: z.string().min(1, 'Pole jest wymagane'),
-}).refine(({password, rePassword}) => password !== rePassword, {
-  path: ['password'],
-  message: "Passwords don't match"
-});
+const registerSchema = z
+  .object({
+    username: z.string().min(1, "Pole jest wymagane"),
+    password: z.string().min(1, "Pole jest wymagane"),
+    rePassword: z.string().min(1, "Pole jest wymagane"),
+  })
+  .refine(({ password, rePassword }) => password !== rePassword, {
+    path: ["password"],
+    message: "Passwords don't match",
+  });
 
 export default function TabOneScreen() {
-  const { control, handleSubmit } = useForm({ defaultValues, resolver: zodResolver(registerSchema) });
+  const { control, handleSubmit } = useForm({
+    defaultValues,
+    resolver: zodResolver(registerSchema),
+  });
   const [register, loading] = useAuth((state) => [
     state.register,
     state.loading,
@@ -34,7 +39,7 @@ export default function TabOneScreen() {
   const onSubmit = async (credentials: typeof defaultValues) => {
     try {
       await register(credentials);
-      router.replace("/");
+      router.replace("/edit-user");
     } catch (err) {
       console.error(err);
     }
