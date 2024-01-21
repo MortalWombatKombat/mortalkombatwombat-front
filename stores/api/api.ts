@@ -45,13 +45,22 @@ class API {
     });
   }
 
-  async getAddictionOptions(): Promise<Array<AddictionOption>> {
-    const { data } = await this.request<Array<AddictionOption>>({
+  async getAddictionOptions(token: string) {
+    const { data: AddictionOption } = await this.request<Array<AddictionOption>>({
       method: "GET",
       url: '/addictions/' // temporarly
     })
 
-    return data;
+    const result = await Promise.all([this.request<Array<AddictionOption>>({
+      method: "GET",
+      url: '/addictions/' // temporarly
+    }), this.request<{ last_name: string | null, first_name: string | null }>({
+      payload: { token },
+      method: "GET",
+      url: '/auth/users/me/' // temporarly
+    })])
+    
+    return result;
   }
 
   async editUser(payload: EditUserPatchPayload): Promise<void> {

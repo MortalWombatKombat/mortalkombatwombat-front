@@ -10,6 +10,7 @@ import { z } from "zod";
 
 type EditUserFormProps = {
   addictionOptions: AddictionOption[],
+  defaultValues: EditUserPatchPayload,
 };
 
 const editUserSchema = z.object({
@@ -20,21 +21,16 @@ const editUserSchema = z.object({
 
 export type EditUserPatchPayload = z.infer<typeof editUserSchema>;
 
-const defaultValues = {
-  first_name: "",
-  last_name: "",
-  addiction: null // TODO: 'change it for select field
-};
 
 export default function EditUserForm(props: EditUserFormProps) {
-  const { control, handleSubmit } = useForm({ defaultValues, resolver: zodResolver(editUserSchema) });
+  const { control, handleSubmit } = useForm({ defaultValues: props.defaultValues, resolver: zodResolver(editUserSchema) });
   const { mutate } = useEditUser();
 return <View style={styles.container}>
   <Text style={styles.title}>Edit user</Text>
   <ControlledInput control={control} label="First name: " name="first_name" />
   <ControlledInput control={control} label="Last name: " name="last_name" />
   <ControlledSingleOptionSelect name="addiction" control={control} options={props.addictionOptions}>
-    <TouchableOpacity style={{ padding: 4, backgroundColor: 'red' }} onPress={handleSubmit(mutate)}><Text>Edit</Text></TouchableOpacity>
+    <TouchableOpacity style={{ padding: 4 }} onPress={handleSubmit(mutate)}><Text>Edit</Text></TouchableOpacity>
   </ControlledSingleOptionSelect>
 </View>
 }

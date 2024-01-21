@@ -1,9 +1,20 @@
 import { AddictionOption } from "@/types/addiction";
 import { useEffect, useState } from "react";
 import API from "@/stores/api";
+import { useAuth } from "@/stores/auth/auth";
 
 export const useAddictionOptions = () => {
-  const [addictionOptions, setAddictionOptions] = useState<AddictionOption[]>([]);
+  const [access] = useAuth(state => [state.access])
+  const [addictionOptions, setAddictionOptions] = useState<AddictionOption[]>([])
+  const [defaultValues, setDefaultValues] = useState<{
+    last_name: string,
+    first_name: string,
+    addiction: number,
+  }>({
+    first_name: '',
+    last_name: '',
+    addiction: 0,
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<unknown>(null);
@@ -12,8 +23,16 @@ export const useAddictionOptions = () => {
     const retrieveAddiction = async () => {
       try {
         setIsLoading(true);
-        const response = await API.getAddictionOptions()
-        setAddictionOptions(response);
+        if(access !== null) {
+          const response = await API.getAddictionOptions(access)
+          const defaultValues = {
+            first_name: response[1].data.first_name ?? "",
+            last_name: response[1].data.last_name ?? "",
+            addiction: 0,
+          }
+          setDefaultValues(defaultValues);
+          setAddictionOptions(response[0].data);
+        }
       } catch(e){
         setError(e);
         setIsError(true);
@@ -28,6 +47,7 @@ export const useAddictionOptions = () => {
     isLoading,
     isError, 
     error,
-    addictionOptions
+    addictionOptions,
+    defaultValues
   }
 }
