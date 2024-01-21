@@ -1,13 +1,14 @@
 import ChatView from "@/components/ChatView";
 import { ChatViewTypes } from "@/components/ChatView/types";
 import EducationalView from "@/components/EducationalView";
+import LinearGradientButton from "@/components/LinearGradientButton";
 import QuestionSet from "@/components/QuestionSet";
 import TimeView from "@/components/TimeView";
 import API from "@/stores/api";
 import { ChallengeType } from "@/types/types";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, Text } from "react-native";
 
 export default function ChallengeScreen() {
   const [challenge, setChallenge] = useState<ChallengeType | null>(null);
@@ -25,7 +26,12 @@ export default function ChallengeScreen() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, width: 300 }}>
+      <View style={{ width: "100%", marginVertical: 16 }}>
+        <LinearGradientButton onPress={goToRootScreen}>
+          <Text style={{ textAlign: "center", color: '#fff', fontWeight: "bold"}}>Go back</Text>
+        </LinearGradientButton>
+      </View>
       {challenge ? (
         (() => {
           if (challenge.type === "socratic_dialogue") {
@@ -61,3 +67,5 @@ export default function ChallengeScreen() {
     </View>
   );
 }
+
+const goToRootScreen = () => router.replace("/");
