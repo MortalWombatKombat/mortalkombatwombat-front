@@ -36,20 +36,27 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <ControlledInput control={control} label="Login: " name="username" />
+      <Text style={styles.title}>Sing in</Text>
+      <ControlledInput placeholder="Enter name" control={control} label="User name" name="username" />
       <ControlledInput
         control={control}
-        label="Password: "
+        label="Password"
         name="password"
+        placeholder="Enter password"
         secure
       />
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.navigate("/register")}>
-        <Text>Register</Text>
-      </TouchableOpacity>
-      {loading ? <ActivityIndicator /> : null}
+      <View style={{ alignItems: "flex-end", rowGap: 8 }}>
+        <TouchableOpacity style={{ marginLeft: 4 }}onPress={() => router.navigate("/register")}>
+        <Text style={{ color: '#10663F' }}>
+            Don't have an account? 
+            <Text style={{ fontWeight: 'bold', color: '#10663F' }}>{" Sign up"}</Text>
+        </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        {loading ? <ActivityIndicator /> : null}
+      </View>
     </View>
   );
 }
@@ -59,10 +66,30 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    rowGap: 16,
+    padding: 48
   },
   title: {
-    fontSize: 20,
+    fontSize: 36,
     fontWeight: "bold",
+    color: "#15CA78",
+    fontFamily: 'Roboto'
+  },
+  button: {
+    backgroundColor: "#15CA78",
+    color: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 16,
+      height: 16,
+    }
+    // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
+  },
+  buttonText: {
+    color: '#fff',
   },
   separator: {
     marginVertical: 30,
