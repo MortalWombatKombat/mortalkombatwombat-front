@@ -37,7 +37,7 @@ export default function HomePage() {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          width: "100%",
+          width: "90%",
         }}
       >
         <LinearGradientButton onPress={openMoodModal}>
@@ -66,8 +66,8 @@ export default function HomePage() {
         </LinearGradientButton>
       </View>
       <Image
-        source={require("../../assets/images/flower/flower-1.png")}
-        style={{ width: 200, height: 450 }}
+        source={require("../../assets/images/flower/flower-5.png")}
+        style={{ width: 350, height: 450 }}
       />
 
       <TouchableOpacity style={styles.appButton} onPress={navigateToChallenge}>
