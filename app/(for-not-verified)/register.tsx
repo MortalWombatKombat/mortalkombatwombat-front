@@ -12,6 +12,7 @@ import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CenteredLayout from "@/components/CenteredLayout/CenteredLayout";
 
 const defaultValues = { username: "", password: "", rePassword: "" };
 
@@ -46,44 +47,49 @@ export default function TabOneScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <ControlledInput control={control} label="Login: " name="username" />
+    <CenteredLayout title="Sign up">
+      <ControlledInput control={control} label="User name" placeholder="Enter name" name="username" />
       <ControlledInput
         control={control}
-        label="Password: "
+        label="Repeat password"
+        placeholder="Repeat password"
         name="password"
         secure
       />
       <ControlledInput
         control={control}
-        label="Repeat password: "
+        label="Repeat password"
+        placeholder="Repeat password"
         name="rePassword"
         secure
       />
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text>Register</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.navigate("/login")}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-      {loading ? <ActivityIndicator /> : null}
-    </View>
+      <View style={{ alignItems: "flex-end", rowGap: 16 }}>
+        <TouchableOpacity style={{ marginLeft: 4 }} onPress={() => router.navigate("/login")}>
+          <Text style={{ color: '#10663F' }}>
+            I have an account!
+            <Text style={{ fontWeight: 'bold', color: '#10663F' }}>{" Sign in"}</Text>
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.buttonText}>Done!</Text>
+        </TouchableOpacity>
+        {loading ? <ActivityIndicator /> : null}
+      </View>
+    </CenteredLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  button: {
+    backgroundColor: "#15CA78",
+    color: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 16,
+    elevation: 4,
+    // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  buttonText: {
+    color: '#fff',
   },
 });

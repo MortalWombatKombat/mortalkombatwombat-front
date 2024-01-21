@@ -12,6 +12,7 @@ import { useAuth } from "@/stores/auth/auth";
 import { CredentialsData } from "@/stores/auth/types";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CenteredLayout from "@/components/CenteredLayout/CenteredLayout";
 
 const defaultValues = { username: "", password: "" };
 
@@ -35,8 +36,7 @@ export default function TabOneScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sing in</Text>
+    <CenteredLayout title="Sign in">
       <ControlledInput placeholder="Enter name" control={control} label="User name" name="username" />
       <ControlledInput
         control={control}
@@ -45,47 +45,30 @@ export default function TabOneScreen() {
         placeholder="Enter password"
         secure
       />
-      <View style={{ alignItems: "flex-end", rowGap: 8 }}>
-        <TouchableOpacity style={{ marginLeft: 4 }}onPress={() => router.navigate("/register")}>
-        <Text style={{ color: '#10663F' }}>
+      <View style={{ alignItems: "flex-end", rowGap: 16 }}>
+        <TouchableOpacity style={{  }} onPress={() => router.navigate("/register")}>
+          <Text style={{ color: '#10663F', justifyContent: 'flex-end' }}>
             Don't have an account? 
             <Text style={{ fontWeight: 'bold', color: '#10663F' }}>{" Sign up"}</Text>
-        </Text>
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Enter</Text>
         </TouchableOpacity>
         {loading ? <ActivityIndicator /> : null}
       </View>
-    </View>
+    </CenteredLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    rowGap: 16,
-    padding: 48
-  },
-  title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: "#15CA78",
-    fontFamily: 'Roboto'
-  },
   button: {
     backgroundColor: "#15CA78",
     color: '#fff',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 16,
-      height: 16,
-    }
+    elevation: 4,
     // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
   },
   buttonText: {

@@ -23,7 +23,8 @@ const ControlledInput = <T extends FieldValues>({
           borderRadius: 16,
           paddingHorizontal: 8,
           paddingVertical: 8,
-          backgroundColor: "#E8E8E8"
+          backgroundColor: "#E8E8E8",
+          elevation: 4,
         }}
         placeholder={placeholder}
         secureTextEntry={secure}
