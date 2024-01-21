@@ -1,5 +1,6 @@
 import ControlledInput from "@/components/ControlledInput";
 import ControlledSingleOptionSelect from "@/components/ControlledSingleOptionSelect";
+import API from "@/stores/api";
 import { AddictionOption } from "@/types/addiction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
@@ -12,36 +13,41 @@ type EditUserFormProps = {
 };
 
 const editUserSchema = z.object({
-  firstname: z.string().min(1, 'Pole jest wymagane'),
-  lastname: z.string().min(1, 'Pole jest wymagane'),
-  addiction: z.string().min(1, 'Pole jest wymagane'),
+  first_name: z.string().min(1, 'Pole jest wymagane'),
+  last_name: z.string().min(1, 'Pole jest wymagane'),
+  addiction: z.number(),
 });
 
+export type EditUserPatchPayload = z.infer<typeof editUserSchema>;
+
 const defaultValues = {
-  firstname: "",
-  lastname: "",
-  addiction: "" // TODO: 'change it for select field
+  first_name: "",
+  last_name: "",
+  addiction: null // TODO: 'change it for select field
 };
 
 export default function EditUserForm(props: EditUserFormProps) {
   const { control, handleSubmit } = useForm({ defaultValues, resolver: zodResolver(editUserSchema) });
-  const onSubmit = async () => {
-    try {
-      goToRootScreen();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+  const { mutate } = useEditUser();
 return <View style={styles.container}>
   <Text style={styles.title}>Edit user</Text>
-  <ControlledInput control={control} label="First name: " name="firstname" />
-  <ControlledInput control={control} label="Last name: " name="lastname" />
+  <ControlledInput control={control} label="First name: " name="first_name" />
+  <ControlledInput control={control} label="Last name: " name="last_name" />
   <ControlledSingleOptionSelect name="addiction" control={control} options={props.addictionOptions}>
-    <TouchableOpacity style={{ padding: 4, backgroundColor: 'red' }} onPress={handleSubmit(onSubmit)}><Text>Edit</Text></TouchableOpacity>
+    <TouchableOpacity style={{ padding: 4, backgroundColor: 'red' }} onPress={handleSubmit(mutate)}><Text>Edit</Text></TouchableOpacity>
   </ControlledSingleOptionSelect>
 </View>
 }
+
+const useEditUser = () => {
+  const mutate = async (payload: EditUserPatchPayload) => {
+    await API.editUser(payload);
+    goToRootScreen();
+  }
+  return {
+    mutate
+  }
+};
 
 const styles = StyleSheet.create({
   container: {

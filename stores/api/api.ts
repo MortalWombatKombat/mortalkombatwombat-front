@@ -2,6 +2,8 @@ import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
 import { BackendCredentialsData, TokensData } from "../auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AddictionOption } from "@/types/addiction";
+import { EditUserPatchPayload } from "@/components/EditUserContainer/EditUserForm/EditUserForm";
 
 class API {
   async login(payload: BackendCredentialsData): Promise<TokensData> {
@@ -43,18 +45,23 @@ class API {
     });
   }
 
-  async getAddictionOptions(): Promise<{ addictionOptions: Array<{ id: string, name: string }> }> {
-    // const { data } = await this.request<{ addictionOptions: string[] }>({
-    //   method: "GET",
-    //   url: '/api/addictions/all' // temporarly
-    // })
+  async getAddictionOptions(): Promise<Array<AddictionOption>> {
+    const { data } = await this.request<Array<AddictionOption>>({
+      method: "GET",
+      url: '/addictions/' // temporarly
+    })
 
-    // return data;
+    return data;
+  }
 
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-      resolve({ addictionOptions: [{ id: '1', name: 'Alcohol'}, { id: '2', name: 'Cofee' }, { id: '3', name: 'Marijuana' }] });
-    }, 2000)} )
+  async editUser(payload: EditUserPatchPayload): Promise<void> {
+    await this.request<{ addictionOptions: 
+      Array<AddictionOption>
+    }>({
+      payload,
+      method: "PATCH",
+      url: '/auth/users/me/' // temporarly
+    })
   }
 
   async request<T>(
@@ -65,7 +72,7 @@ class API {
       payload,
     }: {
       url: string;
-      method: "GET" | "POST";
+      method: "GET" | "POST" | "PATCH";
       headers?: AxiosHeaders;
       payload?: any;
     },

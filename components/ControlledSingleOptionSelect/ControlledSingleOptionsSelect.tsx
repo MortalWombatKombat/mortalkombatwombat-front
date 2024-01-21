@@ -1,12 +1,10 @@
 import { useCallback, useMemo, useRef } from "react";
-import { View, StyleSheet, Text, FlatList,
-  SafeAreaView,
-  TouchableOpacity, } from "react-native";
+import { View, StyleSheet, Text, FlatList, SafeAreaView, TouchableOpacity } from "react-native";
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { Control, FieldValues, Path, useController } from "react-hook-form";
 
 export type Option = {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -64,7 +62,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    rowGap: 16,
   },
   contentContainer: {
     flex: 1,

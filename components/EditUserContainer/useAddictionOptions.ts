@@ -13,7 +13,7 @@ export const useAddictionOptions = () => {
       try {
         setIsLoading(true);
         const response = await API.getAddictionOptions()
-        setAddictionOptions(response.addictionOptions);
+        setAddictionOptions(response);
       } catch(e){
         setError(e);
         setIsError(true);
