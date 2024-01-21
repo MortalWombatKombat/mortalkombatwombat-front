@@ -32,6 +32,9 @@ export default function HomePage() {
   return (
     <View style={styles.container}>
       <Text>Kwiatek</Text>
+      <Pressable onPress={goToTherapy}>
+        <Text>Therapy</Text>
+      </Pressable>
       <Pressable onPress={openMoodModal}>
         <Text>Mood check</Text>
       </Pressable>
@@ -52,7 +55,8 @@ export default function HomePage() {
   );
 }
 
-const goToEditUserScreen = () => router.replace("/edit-user");
+const goToEditUserScreen = () => router.navigate("/edit-user");
+const goToTherapy = () => router.navigate("/therapy");
 
 const styles = StyleSheet.create({
   container: {

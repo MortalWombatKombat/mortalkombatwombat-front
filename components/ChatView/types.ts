@@ -7,7 +7,7 @@ export type ChatViewProps = {
   initialQuestion: string;
 } & (
   | { chatViewType: ChatViewTypes.Socratic; proceed: () => void }
-  | { chatViewType: ChatViewTypes.Therapeutic; proceed: never }
+  | { chatViewType: ChatViewTypes.Therapeutic; proceed: null }
 );
 
 export enum ChatViewTypes {
