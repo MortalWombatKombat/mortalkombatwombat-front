@@ -8,6 +8,9 @@ dependencies:
   '@babel/runtime':
     specifier: ^7.23.8
     version: 7.23.8
+  '@expo/metro-runtime':
+    specifier: ^3.1.1
+    version: 3.1.1(react-native@0.73.2)
   '@expo/vector-icons':
     specifier: ^14.0.0
     version: 14.0.0
@@ -21,17 +24,26 @@ dependencies:
     specifier: 1.21.0
     version: 1.21.0(react-native@0.73.2)
   '@react-native-community/slider':
-    specifier: ^4.5.0
-    version: 4.5.0
+    specifier: 4.4.2
+    version: 4.4.2
+  '@react-native/assets-registry':
+    specifier: ^0.74.0
+    version: 0.74.0
   '@react-navigation/native':
     specifier: ^6.0.2
     version: 6.1.9(react-native@0.73.2)(react@18.2.0)
   axios:
     specifier: ^1.6.5
     version: 1.6.5
+  babel-preset-expo:
+    specifier: ^10.0.1
+    version: 10.0.1(@babel/core@7.23.7)
   expo:
     specifier: ~50.0.2
     version: 50.0.2(@babel/core@7.23.7)(@react-native/babel-preset@0.73.19)
+  expo-asset:
+    specifier: ^9.0.2
+    version: 9.0.2(expo@50.0.2)
   expo-font:
     specifier: ~11.10.2
     version: 11.10.2(expo@50.0.2)
@@ -87,8 +99,8 @@ dependencies:
     specifier: ^3.22.4
     version: 3.22.4
   zustand:
-    specifier: ^4.4.7
-    version: 4.4.7(@types/react@18.2.48)(react@18.2.0)
+    specifier: 4.5.0
+    version: 4.5.0(@types/react@18.2.48)(react@18.2.0)
 
 devDependencies:
   '@babel/core':
@@ -2569,12 +2581,17 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@react-native-community/slider@4.5.0:
-    resolution: {integrity: sha512-pyUvNTvu5IfCI5abzqRfO/dd3A009RC66RXZE6t0gyOwI/j0QDlq9VZRv3rjkpuIvNTnsYj+m5BHlh0DkSYUyA==}
+  /@react-native-community/slider@4.4.2:
+    resolution: {integrity: sha512-D9bv+3Vd2gairAhnRPAghwccgEmoM7g562pm8i4qB3Esrms5mggF81G3UvCyc0w3jjtFHh8dpQkfEoKiP0NW/Q==}
     dev: false
 
   /@react-native/assets-registry@0.73.1:
     resolution: {integrity: sha512-2FgAbU7uKM5SbbW9QptPPZx8N9Ke2L7bsHb+EhAanZjFZunA9PaYtyjUQ1s7HD+zDVqOQIvjkpXSv7Kejd2tqg==}
+    engines: {node: '>=18'}
+    dev: false
+
+  /@react-native/assets-registry@0.74.0:
+    resolution: {integrity: sha512-I8Yy6bCKU5R4qZX4jfXsAPsHyuGHlulbnbG3NqO9JgZ3T2DJxJiZE39rHORP0trLnRh0rIeRcs4Mc14fAE6hrw==}
     engines: {node: '>=18'}
     dev: false
 
@@ -8979,12 +8996,12 @@ packages:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
 
-  /zustand@4.4.7(@types/react@18.2.48)(react@18.2.0):
-    resolution: {integrity: sha512-QFJWJMdlETcI69paJwhSMJz7PPWjVP8Sjhclxmxmxv/RYI7ZOvR5BHX+ktH0we9gTWQMxcne8q1OY8xxz604gw==}
+  /zustand@4.5.0(@types/react@18.2.48)(react@18.2.0):
+    resolution: {integrity: sha512-zlVFqS5TQ21nwijjhJlx4f9iGrXSL0o/+Dpy4txAP22miJ8Ti6c1Ol1RLNN98BMib83lmDH/2KmLwaNXpjrO1A==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@types/react': '>=16.8'
-      immer: '>=9.0'
+      immer: '>=9.0.6'
       react: '>=16.8'
     peerDependenciesMeta:
       '@types/react':
