@@ -1,10 +1,11 @@
 import { StyleSheet, View, Text, Image } from "react-native";
 import { router } from "expo-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MoodCheck from "../../components/MoodCheck";
 import { useAuth } from "../../stores/auth/auth";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import LinearGradientButton from "../../components/LinearGradientButton";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 export default function HomePage() {
   const [currentMoodValue, addictionManageProgressValue] = useAuth((state) => [
@@ -13,6 +14,13 @@ export default function HomePage() {
   ]);
   const [showMoodCheck, setShowMoodCheck] = useState(false);
   const canCloseModal = useRef(true);
+  const [flower, setFlower] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      setFlower((fl) => (fl === 4 ? 0 : fl + 1));
+    }, 5000);
+  }, []);
 
   const openMoodModal = () => {
     canCloseModal.current = true;
@@ -41,35 +49,94 @@ export default function HomePage() {
         }}
       >
         <LinearGradientButton onPress={openMoodModal}>
-        <View style={{ justifyContent: "center", alignItems: 'center'}}>
-          <Image
-            source={require("../../assets/images/button-icons/smile.png")}
-            style={{ width: 50, height: 50  }}
-          />
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Image
+              source={require("../../assets/images/button-icons/smile.png")}
+              style={{ width: 50, height: 50 }}
+            />
           </View>
         </LinearGradientButton>
         <LinearGradientButton onPress={goToTherapy}>
-        <View style={{ justifyContent: "center", alignItems: 'center'}}>
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Image
-            source={require("../../assets/images/button-icons/handshake.png")}
-            style={{ width: 50, height: 50 }}
-          />
+              source={require("../../assets/images/button-icons/handshake.png")}
+              style={{ width: 50, height: 50 }}
+            />
           </View>
         </LinearGradientButton>
         <LinearGradientButton onPress={goToEditUserScreen}>
-        <View style={{ justifyContent: "center", alignItems: 'center'}}>
-          <Image
-            source={require("../../assets/images/button-icons/user.png")}
-            style={{ width: 40, height: 50 }}
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Image
+              source={require("../../assets/images/button-icons/user.png")}
+              style={{ width: 40, height: 50 }}
             />
           </View>
         </LinearGradientButton>
       </View>
-      <Image
-        source={require("../../assets/images/flower/flower-5.png")}
-        style={{ width: 350, height: 450 }}
-      />
-
+      <View style={{ width: "100%", height: 500 }}>
+        {(() => {
+          if (flower === 0)
+            return (
+              <Animated.Image
+                source={require("../../assets/images/flower/flower-1.png")}
+                style={{
+                  width: 400,
+                  height: 400,
+                  position: "absolute",
+                  top: 50,
+                }}
+              />
+            );
+          if (flower === 1)
+            return (
+              <Animated.Image
+                source={require("../../assets/images/flower/flower-2.png")}
+                style={{
+                  width: 400,
+                  height: 400,
+                  position: "absolute",
+                  top: 50,
+                }}
+              />
+            );
+          if (flower === 2)
+            return (
+              <Animated.Image
+                source={require("../../assets/images/flower/flower-3.png")}
+                style={{
+                  width: 400,
+                  height: 400,
+                  position: "absolute",
+                  top: 50,
+                }}
+              />
+            );
+          if (flower === 3)
+            return (
+              <Animated.Image
+                source={require("../../assets/images/flower/flower-4.png")}
+                style={{
+                  width: 400,
+                  height: 400,
+                  position: "absolute",
+                  top: 50,
+                }}
+              />
+            );
+          if (flower === 4)
+            return (
+              <Animated.Image
+                source={require("../../assets/images/flower/flower-5.png")}
+                style={{
+                  width: 400,
+                  height: 400,
+                  position: "absolute",
+                  top: 50,
+                }}
+              />
+            );
+        })()}
+      </View>
       <TouchableOpacity style={styles.appButton} onPress={navigateToChallenge}>
         <Text style={styles.appButtonText}>Start challenge</Text>
       </TouchableOpacity>
