@@ -1,6 +1,6 @@
 import { useAuth } from "../../stores/auth/auth";
 import { Redirect, Slot } from "expo-router";
-import { ActivityIndicator, Image, StyleSheet, View } from "react-native";
+import { ActivityIndicator, ImageBackground, StyleSheet, View } from "react-native";
 import { useAssets } from "expo-asset";
 /**
  * Redirect to main screen if user IS AUTHORIZED
@@ -18,9 +18,9 @@ export default function ProtectedLayout() {
   if (!bgImage) return <ActivityIndicator />;
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../../assets/images/sign-forms/bg.png')} style={styles.container}>
       <Slot />
-    </View>
+    </ImageBackground>
   );
 }
 
