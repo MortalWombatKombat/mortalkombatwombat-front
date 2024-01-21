@@ -1,0 +1,18 @@
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://bitehack2024.onrender.com/api/",
+        "EXPO_PUBLIC_OPENAI_API_KEY": "key"
+      }
+    },
+    "production": {}
+  }
+}
