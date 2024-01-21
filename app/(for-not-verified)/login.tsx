@@ -16,16 +16,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const defaultValues = { username: "", password: "" };
 
 const loginSchema = z.object({
-  username: z.string().min(1, 'Pole jest wymagane'),
-  password: z.string().min(1, 'Pole jest wymagane'),
+  username: z.string().min(1, "Pole jest wymagane"),
+  password: z.string().min(1, "Pole jest wymagane"),
 });
 
 export default function TabOneScreen() {
-  const { control, handleSubmit, setError } = useForm({ defaultValues, resolver: zodResolver(loginSchema) });
-  const [login, loading] = useAuth((state) => [
-    state.login,
-    state.loading,
-  ]);
+  const { control, handleSubmit, setError } = useForm({
+    defaultValues,
+    resolver: zodResolver(loginSchema),
+  });
+  const [login, loading] = useAuth((state) => [state.login, state.loading]);
   const onSubmit = async (credentials: CredentialsData) => {
     try {
       await login(credentials);
