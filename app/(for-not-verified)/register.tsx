@@ -48,7 +48,12 @@ export default function TabOneScreen() {
 
   return (
     <CenteredLayout title="Sign up">
-      <ControlledInput control={control} label="User name" placeholder="Enter name" name="username" />
+      <ControlledInput
+        control={control}
+        label="User name"
+        placeholder="Enter name"
+        name="username"
+      />
       <ControlledInput
         control={control}
         label="Repeat password"
@@ -64,13 +69,21 @@ export default function TabOneScreen() {
         secure
       />
       <View style={{ alignItems: "flex-end", rowGap: 16 }}>
-        <TouchableOpacity style={{ marginLeft: 4 }} onPress={() => router.navigate("/login")}>
-          <Text style={{ color: '#10663F' }}>
+        <TouchableOpacity
+          style={{ marginLeft: 4 }}
+          onPress={() => router.navigate("/login")}
+        >
+          <Text style={{ color: "#10663F" }}>
             I have an account!
-            <Text style={{ fontWeight: 'bold', color: '#10663F' }}>{" Sign in"}</Text>
+            <Text style={{ fontWeight: "bold", color: "#10663F" }}>
+              {" Sign in"}
+            </Text>
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(onSubmit)}
+        >
           <Text style={styles.buttonText}>Done!</Text>
         </TouchableOpacity>
         {loading ? <ActivityIndicator /> : null}
@@ -82,7 +95,7 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#15CA78",
-    color: '#fff',
+    color: "#fff",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 16,
@@ -90,6 +103,6 @@ const styles = StyleSheet.create({
     // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
   },
 });

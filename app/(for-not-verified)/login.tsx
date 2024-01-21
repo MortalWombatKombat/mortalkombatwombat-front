@@ -37,7 +37,12 @@ export default function TabOneScreen() {
 
   return (
     <CenteredLayout title="Sign in">
-      <ControlledInput placeholder="Enter name" control={control} label="User name" name="username" />
+      <ControlledInput
+        placeholder="Enter name"
+        control={control}
+        label="User name"
+        name="username"
+      />
       <ControlledInput
         control={control}
         label="Password"
@@ -46,13 +51,21 @@ export default function TabOneScreen() {
         secure
       />
       <View style={{ alignItems: "flex-end", rowGap: 16 }}>
-        <TouchableOpacity style={{  }} onPress={() => router.navigate("/register")}>
-          <Text style={{ color: '#10663F', justifyContent: 'flex-end' }}>
-            Don't have an account? 
-            <Text style={{ fontWeight: 'bold', color: '#10663F' }}>{" Sign up"}</Text>
+        <TouchableOpacity
+          style={{}}
+          onPress={() => router.navigate("/register")}
+        >
+          <Text style={{ color: "#10663F", justifyContent: "flex-end" }}>
+            Don't have an account?
+            <Text style={{ fontWeight: "bold", color: "#10663F" }}>
+              {" Sign up"}
+            </Text>
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(onSubmit)}
+        >
           <Text style={styles.buttonText}>Enter</Text>
         </TouchableOpacity>
         {loading ? <ActivityIndicator /> : null}
@@ -64,7 +77,7 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#15CA78",
-    color: '#fff',
+    color: "#fff",
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 16,
@@ -72,7 +85,7 @@ const styles = StyleSheet.create({
     // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
   },
   separator: {
     marginVertical: 30,

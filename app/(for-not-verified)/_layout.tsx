@@ -11,11 +11,11 @@ export default function ProtectedLayout(){
     state.access,
   ]);
 
-  // const [assets, error] = useAssets([require('@/assets/images/sign-forms/bg.png')]);
+  const [assets, error] = useAssets([require('@/assets/images/sign-forms/bg.png')]);
 
   if(access) return <Redirect href="/" />
-  // const bgImage = assets?.at(0);
-  // if(!bgImage) return <ActivityIndicator />
+  const bgImage = assets?.at(0);
+  if(!bgImage) return <ActivityIndicator />
 
   return <View style={styles.container}>
       <Slot />
