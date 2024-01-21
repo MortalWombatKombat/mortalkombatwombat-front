@@ -1,3 +1,4 @@
+import React from 'react';
 import ChatView from "../../components/ChatView";
 import { ChatViewTypes } from "../../components/ChatView/types";
 import EducationalView from "../../components/EducationalView";
@@ -8,7 +9,7 @@ import API from "../../stores/api";
 import { ChallengeType } from "../../types/types";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, ActivityIndicator, Text } from "react-native";
+import { View, ActivityIndicator, Image } from "react-native";
 
 export default function ChallengeScreen() {
   const [challenge, setChallenge] = useState<ChallengeType | null>(null);
@@ -29,11 +30,12 @@ export default function ChallengeScreen() {
     <View style={{ flex: 1, width: 300 }}>
       <View style={{ width: "100%", marginVertical: 16 }}>
         <LinearGradientButton onPress={goToRootScreen}>
-          <Text
-            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
-          >
-            Go back
-          </Text>
+          <View style={{ justifyContent: "center", alignItems: 'center'}}>
+            <Image
+              source={require("../../assets/images/button-icons/arrow.png")}
+              style={{ width: 25, height: 25  }}
+              />
+          </View>
         </LinearGradientButton>
       </View>
       {challenge ? (

@@ -41,30 +41,33 @@ export default function HomePage() {
         }}
       >
         <LinearGradientButton onPress={openMoodModal}>
-          <Text
-            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
-          >
-            Mood check
-          </Text>
+        <View style={{ justifyContent: "center", alignItems: 'center'}}>
+          <Image
+            source={require("../../assets/images/button-icons/smile.png")}
+            style={{ width: 50, height: 50  }}
+          />
+          </View>
         </LinearGradientButton>
         <LinearGradientButton onPress={goToTherapy}>
-          <Text
-            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
-          >
-            See Therapy
-          </Text>
+        <View style={{ justifyContent: "center", alignItems: 'center'}}>
+            <Image
+            source={require("../../assets/images/button-icons/handshake.png")}
+            style={{ width: 50, height: 50 }}
+          />
+          </View>
         </LinearGradientButton>
         <LinearGradientButton onPress={goToEditUserScreen}>
-          <Text
-            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
-          >
-            Edit user
-          </Text>
+        <View style={{ justifyContent: "center", alignItems: 'center'}}>
+          <Image
+            source={require("../../assets/images/button-icons/user.png")}
+            style={{ width: 40, height: 50 }}
+            />
+          </View>
         </LinearGradientButton>
       </View>
       <Image
         source={require("../../assets/images/flower/flower-1.png")}
-        style={{ width: 200, height: 200 }}
+        style={{ width: 200, height: 450 }}
       />
 
       <TouchableOpacity style={styles.appButton} onPress={navigateToChallenge}>

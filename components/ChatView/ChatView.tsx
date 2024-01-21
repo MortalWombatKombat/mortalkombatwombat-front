@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+
+import React, { FC, useState } from "react";
 import OpenAI from "openai";
 import { ChatViewProps, ChatViewTypes, MessageType } from "./types";
 import {

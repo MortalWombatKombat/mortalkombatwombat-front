@@ -1,6 +1,6 @@
 import { FieldValues, useController } from "react-hook-form";
 import { ControlledInputProps } from "./types";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { TextInput, View, Text } from "react-native";
 
 const ControlledInput = <T extends FieldValues>({

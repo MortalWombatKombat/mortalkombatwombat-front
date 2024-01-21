@@ -5,7 +5,7 @@ import { UserData } from "../../stores/auth/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { z } from "zod";
 import LinearGradientButton from "../LinearGradientButton";
 
@@ -37,7 +37,12 @@ export default function EditUserForm() {
     <View style={styles.container}>
       <View style={{ width: "100%", }}>
         <LinearGradientButton onPress={goToRootScreen}>
-          <Text style={{ textAlign: "center", color: '#fff', fontWeight: "bold"}}>Go back</Text>
+        <View style={{ justifyContent: "center", alignItems: 'center'}}>
+          <Image
+            source={require("../../assets/images/button-icons/arrow.png")}
+            style={{ width: 25, height: 25  }}
+            />
+          </View>
         </LinearGradientButton>
       </View>
       <Text style={styles.title}>Edit user</Text>
