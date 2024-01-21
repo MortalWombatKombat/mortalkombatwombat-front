@@ -1,18 +1,24 @@
 import { FC, useState } from "react";
 import OpenAI from "openai";
-import { ChatViewProps, MessageType } from "./types";
+import { ChatViewProps, ChatViewTypes, MessageType } from "./types";
 import {
   FlatList,
   View,
   Text,
   TextInput,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import { configMap } from "./consts";
+import { router } from "expo-router";
 
 const openai = new OpenAI({ apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY });
 
-const Lobby: FC<ChatViewProps> = ({ initialQuestion, chatViewType }) => {
+const Lobby: FC<ChatViewProps> = ({
+  initialQuestion,
+  chatViewType,
+  proceed,
+}) => {
   const [waiting, setWaiting] = useState(false);
   const [messages, setMessages] = useState<Array<MessageType>>([
     { role: "system", content: configMap[chatViewType].instructions },
@@ -21,6 +27,9 @@ const Lobby: FC<ChatViewProps> = ({ initialQuestion, chatViewType }) => {
 
   const onUserInput = async (message: string) => {
     setWaiting(true);
+    if (chatViewType === ChatViewTypes.Socratic && messages.length > 15) {
+      return proceed();
+    }
     setMessages((messages) => [
       ...messages,
       { content: message, role: "user" },
@@ -49,6 +58,11 @@ const Lobby: FC<ChatViewProps> = ({ initialQuestion, chatViewType }) => {
 
   return (
     <View style={{ flex: 1, width: "100%" }}>
+      {chatViewType === ChatViewTypes.Therapeutic ? (
+        <Pressable onPress={router.back}>
+          <Text>Leave</Text>
+        </Pressable>
+      ) : null}
       <FlatList
         style={{ width: "100%", paddingHorizontal: "5%" }}
         data={messages.filter(({ role }) => role !== "system")}

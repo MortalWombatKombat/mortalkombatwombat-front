@@ -7,7 +7,7 @@ import {
   UserData,
 } from "../auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AddictionOption } from "@/types/addiction";
+import { AddictionOption, ChallengeType } from "@/types/types";
 
 class API {
   async login(payload: CredentialsData): Promise<TokensData> {
@@ -86,6 +86,21 @@ class API {
       url: "/mood_entry/",
       method: "POST",
       payload: { ...payload },
+    });
+  }
+
+  async drawChallenge(): Promise<ChallengeType | null> {
+    const { data } = await this.request<ChallengeType | null>({
+      url: "/challenges/draw/",
+      method: "GET",
+    });
+    return data || null;
+  }
+
+  async finishChallenge(): Promise<void> {
+    this.request<void>({
+      url: "/challenges/finish_challenge/",
+      method: "POST",
     });
   }
 
