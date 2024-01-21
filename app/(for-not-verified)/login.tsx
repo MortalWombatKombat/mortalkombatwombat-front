@@ -7,12 +7,12 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
-import ControlledInput from "@/components/ControlledInput";
-import { useAuth } from "@/stores/auth/auth";
-import { CredentialsData } from "@/stores/auth/types";
+import ControlledInput from "../../components/ControlledInput";
+import { useAuth } from "../../stores/auth/auth";
+import { CredentialsData } from "../../stores/auth/types";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CenteredLayout from "@/components/CenteredLayout/CenteredLayout";
+import CenteredLayout from "../../components/CenteredLayout/CenteredLayout";
 
 const defaultValues = { username: "", password: "" };
 
@@ -51,10 +51,7 @@ export default function TabOneScreen() {
         secure
       />
       <View style={{ alignItems: "flex-end", rowGap: 16 }}>
-        <TouchableOpacity
-          style={{}}
-          onPress={() => router.navigate("/register")}
-        >
+        <TouchableOpacity style={{}} onPress={() => router.push("/register")}>
           <Text style={{ color: "#10663F", justifyContent: "flex-end" }}>
             Don't have an account?
             <Text style={{ fontWeight: "bold", color: "#10663F" }}>

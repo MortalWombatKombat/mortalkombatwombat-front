@@ -8,11 +8,11 @@ import {
 import { router } from "expo-router";
 
 import { useForm } from "react-hook-form";
-import ControlledInput from "@/components/ControlledInput";
-import { useAuth } from "@/stores/auth/auth";
+import ControlledInput from "../../components/ControlledInput";
+import { useAuth } from "../../stores/auth/auth";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CenteredLayout from "@/components/CenteredLayout/CenteredLayout";
+import CenteredLayout from "../../components/CenteredLayout/CenteredLayout";
 
 const defaultValues = { username: "", password: "", rePassword: "" };
 
@@ -71,7 +71,7 @@ export default function TabOneScreen() {
       <View style={{ alignItems: "flex-end", rowGap: 16 }}>
         <TouchableOpacity
           style={{ marginLeft: 4 }}
-          onPress={() => router.navigate("/login")}
+          onPress={() => router.push("/login")}
         >
           <Text style={{ color: "#10663F" }}>
             I have an account!

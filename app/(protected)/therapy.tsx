@@ -1,5 +1,5 @@
-import ChatView from "@/components/ChatView";
-import { ChatViewTypes } from "@/components/ChatView/types";
+import ChatView from "../../components/ChatView";
+import { ChatViewTypes } from "../../components/ChatView/types";
 
 export default function MoodCheckScreen() {
   return (

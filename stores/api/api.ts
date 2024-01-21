@@ -7,7 +7,7 @@ import {
   UserData,
 } from "../auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { AddictionOption, ChallengeType } from "@/types/types";
+import { AddictionOption, ChallengeType } from "../../types/types";
 
 class API {
   async login(payload: CredentialsData): Promise<TokensData> {

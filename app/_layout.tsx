@@ -1,4 +1,4 @@
-import { useAuth } from "@/stores/auth/auth";
+import { useAuth } from "../stores/auth/auth";
 import { Slot } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
@@ -17,5 +17,9 @@ export default function RootLayout() {
 
   if (restoreTokensLoading) return <ActivityIndicator />;
 
-  return  <GestureHandlerRootView style={{ flex: 1 }}><Slot /></GestureHandlerRootView>
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Slot />
+    </GestureHandlerRootView>
+  );
 }
