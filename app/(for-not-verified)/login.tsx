@@ -12,6 +12,7 @@ import { useAuth } from "@/stores/auth/auth";
 import { CredentialsData } from "@/stores/auth/types";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CenteredLayout from "@/components/CenteredLayout/CenteredLayout";
 
 const defaultValues = { username: "", password: "" };
 
@@ -35,34 +36,56 @@ export default function TabOneScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <ControlledInput control={control} label="Login: " name="username" />
+    <CenteredLayout title="Sign in">
+      <ControlledInput
+        placeholder="Enter name"
+        control={control}
+        label="User name"
+        name="username"
+      />
       <ControlledInput
         control={control}
-        label="Password: "
+        label="Password"
         name="password"
+        placeholder="Enter password"
         secure
       />
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.navigate("/register")}>
-        <Text>Register</Text>
-      </TouchableOpacity>
-      {loading ? <ActivityIndicator /> : null}
-    </View>
+      <View style={{ alignItems: "flex-end", rowGap: 16 }}>
+        <TouchableOpacity
+          style={{}}
+          onPress={() => router.navigate("/register")}
+        >
+          <Text style={{ color: "#10663F", justifyContent: "flex-end" }}>
+            Don't have an account?
+            <Text style={{ fontWeight: "bold", color: "#10663F" }}>
+              {" Sign up"}
+            </Text>
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(onSubmit)}
+        >
+          <Text style={styles.buttonText}>Enter</Text>
+        </TouchableOpacity>
+        {loading ? <ActivityIndicator /> : null}
+      </View>
+    </CenteredLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  button: {
+    backgroundColor: "#15CA78",
+    color: "#fff",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 16,
+    elevation: 4,
+    // boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.15)"
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  buttonText: {
+    color: "#fff",
   },
   separator: {
     marginVertical: 30,

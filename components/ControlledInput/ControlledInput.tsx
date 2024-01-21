@@ -8,6 +8,7 @@ const ControlledInput = <T extends FieldValues>({
   label,
   control,
   secure,
+  placeholder = "Type..."
 }: ControlledInputProps<T>): ReactElement => {
   const {
     field: { value, onChange },
@@ -15,14 +16,22 @@ const ControlledInput = <T extends FieldValues>({
   } = useController({ control, name });
 
   return (
-    <View>
-      <Text>{label}</Text>
+    <View style={{ width: "100%" }}>
+      <Text style={{ marginLeft: 16, color: "#10663F", fontWeight: 'bold' }}>{label}</Text>
       <TextInput
+        style={{
+          borderRadius: 16,
+          paddingHorizontal: 8,
+          paddingVertical: 8,
+          backgroundColor: "#E8E8E8",
+          elevation: 4,
+        }}
+        placeholder={placeholder}
         secureTextEntry={secure}
         value={value}
         onChangeText={onChange}
       />
-      {error?.message ? <Text>{error.message}</Text> : null}
+      {error?.message ? <Text style={{ marginLeft: 16, color: "red" }}>{error.message}</Text> : null}
     </View>
   );
 };
