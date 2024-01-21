@@ -14,8 +14,7 @@ export default function ProtectedLayout(){
   if(!access) return <Redirect href="/login" />
 
   return <LinearGradient  style={styles.container} colors={["#fff", "#8AEAFF"]} locations={[0.6, 1.0]}>
-    <View style={{    marginVertical: 80,
-    marginHorizontal: 25,}}><Slot /></View></LinearGradient>
+    <View style={{ marginVertical: 80, marginHorizontal: 25 }}><Slot /></View></LinearGradient>
 }
 
 const styles = StyleSheet.create({

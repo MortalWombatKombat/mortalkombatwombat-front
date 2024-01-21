@@ -48,8 +48,14 @@ export default function ControlledSingleOptionSelect<T extends FieldValues>({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleOpenPress}>
-        <Text>{visibleValue}</Text>
+      <Text style={{ color: "#10663F", fontWeight: "bold", width: "100%", paddingHorizontal: 8 }}>Addiction?</Text>
+      <TouchableOpacity style={{ width: "100%",
+          borderRadius: 16,
+          paddingHorizontal: 8,
+          paddingVertical: 8,
+          backgroundColor: "#E8E8E8",
+          elevation: 4,}} onPress={handleOpenPress}>
+        <Text style={{ paddingHorizontal: 4 }}>{visibleValue}</Text>
       </TouchableOpacity>
       {children}
       <BottomSheet ref={bottomSheetRef} index={-1} snapPoints={["50%"]}>
@@ -81,6 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     alignItems: "center",
+    justifyContent: "flex-start",
     rowGap: 16,
   },
   contentContainer: {
