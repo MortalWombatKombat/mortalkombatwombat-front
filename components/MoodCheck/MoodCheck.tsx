@@ -3,7 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { MoodCheckProps } from "./types";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import Slider from "@react-native-community/slider";
-import { useAuth } from "@/stores/auth/auth";
+import { useAuth } from "../../stores/auth/auth";
 
 const MoodCheck: FC<MoodCheckProps> = ({ onClose, onProgress, canClose }) => {
   const [currentMoodValue, addictionManageProgressValue, postMood] = useAuth(

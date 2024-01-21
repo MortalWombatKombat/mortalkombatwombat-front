@@ -1,4 +1,4 @@
-import { AddictionOption } from "@/types/types";
+import { AddictionOption } from "../../types/types";
 
 export type TokensData = {
   access: string;

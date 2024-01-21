@@ -1,7 +1,7 @@
-import ControlledInput from "@/components/ControlledInput";
-import ControlledSingleOptionSelect from "@/components/ControlledSingleOptionSelect";
-import { useAuth } from "@/stores/auth/auth";
-import { UserData } from "@/stores/auth/types";
+import ControlledInput from "../../components/ControlledInput";
+import ControlledSingleOptionSelect from "../../components/ControlledSingleOptionSelect";
+import { useAuth } from "../../stores/auth/auth";
+import { UserData } from "../../stores/auth/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
 import { useForm } from "react-hook-form";
@@ -30,7 +30,7 @@ export default function EditUserForm() {
 
   const onSubmit = (payload: UserData) => {
     editUser(payload);
-    router.navigate("/");
+    router.push("/");
   };
 
   return (

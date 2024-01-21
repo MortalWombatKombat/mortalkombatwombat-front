@@ -1,24 +1,15 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-} from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import MoodCheck from "@/components/MoodCheck";
-import { useAuth } from "@/stores/auth/auth";
+import MoodCheck from "../../components/MoodCheck";
+import { useAuth } from "../../stores/auth/auth";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { LinearGradient } from "expo-linear-gradient";
-import { useAssets } from "expo-asset";
-import LinearGradientButton from "@/components/LinearGradientButton";
+import LinearGradientButton from "../../components/LinearGradientButton";
 
 export default function HomePage() {
   const [currentMoodValue, addictionManageProgressValue] = useAuth((state) => [
     state.currentMoodValue,
     state.addictionManageProgressValue,
-  ]);
-  const [assets, error] = useAssets([
-    require("@/assets/images/flower/flower-1.png"),
   ]);
   const [showMoodCheck, setShowMoodCheck] = useState(false);
   const canCloseModal = useRef(true);
@@ -37,7 +28,7 @@ export default function HomePage() {
       setShowMoodCheck(true);
       return;
     }
-    router.navigate("/challenge");
+    router.push("/challenge");
   };
 
   return (
@@ -50,23 +41,39 @@ export default function HomePage() {
         }}
       >
         <LinearGradientButton onPress={openMoodModal}>
-          <Text style={{ textAlign: "center", color: '#fff', fontWeight: "bold"}}>Mood check</Text>
+          <Text
+            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
+          >
+            Mood check
+          </Text>
         </LinearGradientButton>
         <LinearGradientButton onPress={goToTherapy}>
-          <Text style={{ textAlign: "center", color: '#fff', fontWeight: "bold"}}>See Therapy</Text>
+          <Text
+            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
+          >
+            See Therapy
+          </Text>
         </LinearGradientButton>
         <LinearGradientButton onPress={goToEditUserScreen}>
-          <Text style={{ textAlign: "center", color: '#fff', fontWeight: "bold" }}>Edit user</Text>
+          <Text
+            style={{ textAlign: "center", color: "#fff", fontWeight: "bold" }}
+          >
+            Edit user
+          </Text>
         </LinearGradientButton>
       </View>
-      <Text>Ilustracja</Text>
+      <Image
+        source={require("../../assets/images/flower/flower-1.png")}
+        style={{ width: 200, height: 200 }}
+      />
+
       <TouchableOpacity style={styles.appButton} onPress={navigateToChallenge}>
         <Text style={styles.appButtonText}>Start challenge</Text>
       </TouchableOpacity>
       {showMoodCheck ? (
         <MoodCheck
           onClose={() => setShowMoodCheck(false)}
-          onProgress={() => router.navigate("/challenge")}
+          onProgress={() => router.push("/challenge")}
           canClose={canCloseModal.current}
         />
       ) : null}
@@ -74,8 +81,8 @@ export default function HomePage() {
   );
 }
 
-const goToEditUserScreen = () => router.navigate("/edit-user");
-const goToTherapy = () => router.navigate("/therapy");
+const goToEditUserScreen = () => router.push("/edit-user");
+const goToTherapy = () => router.push("/therapy");
 
 const styles = StyleSheet.create({
   container: {
