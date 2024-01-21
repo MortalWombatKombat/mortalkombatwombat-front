@@ -10,18 +10,27 @@ import { useForm } from "react-hook-form";
 import ControlledInput from "@/components/ControlledInput";
 import { useAuth } from "@/stores/auth/auth";
 import { CredentialsData } from "@/stores/auth/types";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValues = { username: "", password: "" };
 
+const loginSchema = z.object({
+  username: z.string().min(1, 'Pole jest wymagane'),
+  password: z.string().min(1, 'Pole jest wymagane'),
+});
+
 export default function TabOneScreen() {
-  const { control, handleSubmit, setError } = useForm({ defaultValues });
-  const [login, loading] = useAuth((state) => [state.login, state.loading]);
+  const { control, handleSubmit, setError } = useForm({ defaultValues, resolver: zodResolver(loginSchema) });
+  const [login, loading] = useAuth((state) => [
+    state.login,
+    state.loading,
+  ]);
   const onSubmit = async (credentials: CredentialsData) => {
     try {
       await login(credentials);
     } catch (err) {
       console.error(err);
-      setError("password", { message: "Wrong email or password!" });
     }
   };
 

@@ -2,6 +2,8 @@ import { AxiosHeaders, AxiosResponse } from "axios";
 import { client } from "./client";
 import { BackendCredentialsData, TokensData } from "../auth/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AddictionOption } from "@/types/addiction";
+import { EditUserPatchPayload } from "@/components/EditUserContainer/EditUserForm/EditUserForm";
 
 class API {
   async login(payload: BackendCredentialsData): Promise<TokensData> {
@@ -43,6 +45,34 @@ class API {
     });
   }
 
+  async getAddictionOptions(token: string) {
+    const { data: AddictionOption } = await this.request<Array<AddictionOption>>({
+      method: "GET",
+      url: '/addictions/' // temporarly
+    })
+
+    const result = await Promise.all([this.request<Array<AddictionOption>>({
+      method: "GET",
+      url: '/addictions/' // temporarly
+    }), this.request<{ last_name: string | null, first_name: string | null }>({
+      payload: { token },
+      method: "GET",
+      url: '/auth/users/me/' // temporarly
+    })])
+    
+    return result;
+  }
+
+  async editUser(payload: EditUserPatchPayload): Promise<void> {
+    await this.request<{ addictionOptions: 
+      Array<AddictionOption>
+    }>({
+      payload,
+      method: "PATCH",
+      url: '/auth/users/me/' // temporarly
+    })
+  }
+
   async request<T>(
     {
       url,
@@ -51,7 +81,7 @@ class API {
       payload,
     }: {
       url: string;
-      method: "GET" | "POST";
+      method: "GET" | "POST" | "PATCH";
       headers?: AxiosHeaders;
       payload?: any;
     },
