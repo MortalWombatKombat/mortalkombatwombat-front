@@ -21,7 +21,7 @@ const registerSchema = z
     password: z.string().min(1, "Pole jest wymagane"),
     rePassword: z.string().min(1, "Pole jest wymagane"),
   })
-  .refine(({ password, rePassword }) => password !== rePassword, {
+  .refine(({ password, rePassword }) => password === rePassword, {
     path: ["password"],
     message: "Passwords don't match",
   });
@@ -41,7 +41,7 @@ export default function TabOneScreen() {
       await register(credentials);
       router.replace("/edit-user");
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
     }
   };
 
