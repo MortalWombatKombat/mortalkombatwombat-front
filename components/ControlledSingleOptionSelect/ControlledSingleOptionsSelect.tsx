@@ -39,7 +39,7 @@ export default function ControlledSingleOptionSelect<T extends FieldValues>({
   }, []);
 
   const handleOpenPress = useCallback(() => {
-    bottomSheetRef.current?.snapToIndex(1);
+    bottomSheetRef.current?.snapToIndex(0);
   }, []);
   const visibleValue = useMemo(
     () => options.find(({ id }) => id === value)?.name ?? "Choose option",
@@ -48,17 +48,31 @@ export default function ControlledSingleOptionSelect<T extends FieldValues>({
 
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#10663F", fontWeight: "bold", width: "100%", paddingHorizontal: 8 }}>Addiction?</Text>
-      <TouchableOpacity style={{ width: "100%",
+      <Text
+        style={{
+          color: "#10663F",
+          fontWeight: "bold",
+          width: "100%",
+          paddingHorizontal: 8,
+        }}
+      >
+        Addiction?
+      </Text>
+      <TouchableOpacity
+        style={{
+          width: "100%",
           borderRadius: 16,
           paddingHorizontal: 8,
           paddingVertical: 8,
           backgroundColor: "#E8E8E8",
-          elevation: 4,}} onPress={handleOpenPress}>
+          elevation: 4,
+        }}
+        onPress={handleOpenPress}
+      >
         <Text style={{ paddingHorizontal: 4 }}>{visibleValue}</Text>
       </TouchableOpacity>
       {children}
-      <BottomSheet ref={bottomSheetRef} index={-1} snapPoints={["50%"]}>
+      <BottomSheet ref={bottomSheetRef} index={-1} snapPoints={["30%"]}>
         <BottomSheetView>
           <SafeAreaView>
             <FlatList

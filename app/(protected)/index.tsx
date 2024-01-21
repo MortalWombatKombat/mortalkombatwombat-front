@@ -73,7 +73,14 @@ export default function HomePage() {
           </View>
         </LinearGradientButton>
       </View>
-      <View style={{ width: "100%", height: 500 }}>
+      <View
+        style={{
+          width: "100%",
+          height: 500,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         {(() => {
           if (flower === 0)
             return (

@@ -8,14 +8,14 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png"
+      "image": "./assets/images/logo.png"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "icon": "./assets/images/adaptive-icon.png",
+      "icon": "./assets/images/logo.png",
       "package": "com.blossom.example"
     },
     "plugins": ["expo-router"],
