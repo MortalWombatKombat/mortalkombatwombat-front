@@ -13,7 +13,10 @@ import {
 import { configMap } from "./consts";
 import { router } from "expo-router";
 
-const openai = new OpenAI({ apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY });
+const openai = new OpenAI({
+  apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY,
+  organization: "org-49OKIB9fxQ2Lb8dkdfLksbJt",
+});
 
 const Lobby: FC<ChatViewProps> = ({
   initialQuestion,
@@ -87,6 +90,7 @@ const Lobby: FC<ChatViewProps> = ({
       />
       {waiting ? <ActivityIndicator /> : null}
       <TextInput
+        style={{ borderWidth: 2 }}
         onSubmitEditing={({ nativeEvent }) => onUserInput(nativeEvent.text)}
       />
     </View>

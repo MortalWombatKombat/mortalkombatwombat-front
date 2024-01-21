@@ -1,0 +1,13 @@
+diff --git a/node_modules/openai/core.js b/node_modules/openai/core.js
+index 9f7af84..c0c72fc 100644
+--- a/node_modules/openai/core.js
++++ b/node_modules/openai/core.js
+@@ -311,7 +311,7 @@ class APIClient {
+         if (typeof query === 'object' && query && !Array.isArray(query)) {
+             url.search = this.stringifyQuery(query);
+         }
+-        return url.toString();
++        return url.toString().slice(0, -1);
+     }
+     stringifyQuery(query) {
+         return Object.entries(query)
